@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Advanced Quiz App</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="container">
+
+<!-- Start -->
+<div id="start">
+    <h1>🧠 Quiz App</h1>
+    <select id="category">
+        <option value="js">JavaScript</option>
+        <option value="html">HTML</option>
+    </select>
+    <button onclick="startQuiz()">Start Quiz</button>
+</div>
+
+<!-- Quiz -->
+<div id="quiz" class="hidden">
+    <div class="progress"><div class="progress-bar" id="progress"></div></div>
+    <div class="timer" id="timer"></div>
+    <h3 id="question"></h3>
+    <div id="options"></div>
+</div>
+
+<!-- Result -->
+<div id="result" class="hidden">
+    <h2 id="score"></h2>
+    <p id="performance"></p>
+    <button onclick="showReview()">Review Answers</button>
+    <button onclick="restart()">Restart</button>
+</div>
+
+<!-- Review -->
+<div id="review" class="hidden"></div>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
