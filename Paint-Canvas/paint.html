@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Canvas Paint Studio</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;700;800&display=swap" rel="stylesheet"/>
+</head>
+<body>
+
+  <div class="app">
+
+    <!-- LEFT TOOLBAR -->
+    <aside class="toolbar toolbar--left">
+      <div class="brand">
+        <span class="brand__dot"></span>
+        <span class="brand__name">PAINT<br/>STUDIO</span>
+      </div>
+
+      <div class="tool-group">
+        <label class="tool-label">TOOLS</label>
+        <button class="tool-btn active" data-tool="pencil" title="Pencil">
+          <svg viewBox="0 0 24 24"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a1 1 0 0 0 0-1.41l-2.34-2.34a1 1 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
+        </button>
+        <button class="tool-btn" data-tool="brush" title="Brush">
+          <svg viewBox="0 0 24 24"><path d="M7 14c-1.66 0-3 1.34-3 3 0 1.31-1.16 2-2 2 .92 1.22 2.49 2 4 2 2.21 0 4-1.79 4-4 0-1.66-1.34-3-3-3zm13.71-9.37l-1.34-1.34a1 1 0 0 0-1.41 0L9 12.25 11.75 15l8.96-8.96a1 1 0 0 0 0-1.41z"/></svg>
+        </button>
+        <button class="tool-btn" data-tool="spray" title="Spray">
+          <svg viewBox="0 0 24 24"><circle cx="7" cy="17" r="1"/><circle cx="11" cy="19" r="1"/><circle cx="9" cy="13" r="1"/><circle cx="14" cy="16" r="1"/><circle cx="13" cy="21" r="1"/><path d="M16.67 2H9v2h3.67l-2 4H5c-1.1 0-2 .9-2 2v9h2v-9h5.42l-2 4H5v2h2.42L6 19h2.11l1.42-3H13l1.34 3H16.4l-1.43-3.2C16.96 15.3 18 13.79 18 12V8.33L19.33 5H21V3h-2.67L16.67 2z"/></svg>
+        </button>
+        <button class="tool-btn" data-tool="line" title="Line">
+          <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-1 14.5H6v-2h12v2z"/></svg>
+        </button>
+        <button class="tool-btn" data-tool="rect" title="Rectangle">
+          <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14z"/></svg>
+        </button>
+        <button class="tool-btn" data-tool="circle" title="Circle">
+          <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/></svg>
+        </button>
+        <button class="tool-btn" data-tool="eraser" title="Eraser">
+          <svg viewBox="0 0 24 24"><path d="M15.14 3c-.51 0-1.02.2-1.41.59L2.59 14.73c-.78.77-.78 2.04 0 2.83L5.03 20H20v-2h-6.41l7.82-7.82c.78-.78.78-2.05 0-2.83l-4.86-4.86c-.39-.39-.9-.59-1.41-.59zm-3.73 12.73L6 10.27 14.73 1.54l5.46 5.46-8.78 8.73z"/></svg>
+        </button>
+        <button class="tool-btn" data-tool="fill" title="Fill">
+          <svg viewBox="0 0 24 24"><path d="M16.56 8.94L7.62 0 6.21 1.41l2.38 2.38-5.15 5.15a1.49 1.49 0 0 0 0 2.12l5.5 5.5c.29.29.68.44 1.06.44s.77-.15 1.06-.44l5.5-5.5c.59-.58.59-1.53 0-2.12zM5.21 10L10 5.21 14.79 10H5.21zM19 11.5s-2 2.17-2 3.5c0 1.1.9 2 2 2s2-.9 2-2c0-1.33-2-3.5-2-3.5z"/><path d="M0 20h24v4H0z" opacity=".36"/></svg>
+        </button>
+      </div>
+
+      <div class="tool-group">
+        <label class="tool-label">SIZE</label>
+        <div class="size-slider-wrap">
+          <input type="range" id="brushSize" min="1" max="60" value="6" class="size-slider"/>
+          <span id="sizeLabel" class="size-label">6px</span>
+        </div>
+        <div class="size-presets">
+          <button class="size-preset" data-size="2">XS</button>
+          <button class="size-preset" data-size="6">S</button>
+          <button class="size-preset" data-size="14">M</button>
+          <button class="size-preset" data-size="28">L</button>
+        </div>
+      </div>
+
+      <div class="tool-group">
+        <label class="tool-label">OPACITY</label>
+        <div class="size-slider-wrap">
+          <input type="range" id="opacityRange" min="5" max="100" value="100" class="size-slider"/>
+          <span id="opacityLabel" class="size-label">100%</span>
+        </div>
+      </div>
+    </aside>
+
+    <!-- CANVAS AREA -->
+    <main class="canvas-area">
+      <div class="canvas-topbar">
+        <div class="canvas-info">
+          <span id="coordsDisplay" class="coords">x: 0 | y: 0</span>
+        </div>
+        <div class="canvas-actions">
+          <button class="action-btn" id="undoBtn" title="Undo (Ctrl+Z)">↩ Undo</button>
+          <button class="action-btn" id="redoBtn" title="Redo (Ctrl+Y)">↪ Redo</button>
+          <button class="action-btn" id="clearBtn" title="Clear Canvas">✕ Clear</button>
+          <button class="action-btn action-btn--primary" id="saveBtn" title="Save Image">↓ Save</button>
+        </div>
+      </div>
+
+      <div class="canvas-wrapper" id="canvasWrapper">
+        <canvas id="mainCanvas"></canvas>
+        <canvas id="overlayCanvas"></canvas>
+      </div>
+    </main>
+
+    <!-- RIGHT PANEL - COLOR -->
+    <aside class="toolbar toolbar--right">
+      <div class="tool-group">
+        <label class="tool-label">COLOR</label>
+        <div class="color-picker-wrap">
+          <input type="color" id="colorPicker" value="#ff3b5c"/>
+          <div class="color-preview" id="colorPreview" style="background:#ff3b5c;"></div>
+        </div>
+      </div>
+
+      <div class="tool-group">
+        <label class="tool-label">SWATCHES</label>
+        <div class="swatches" id="swatches"></div>
+      </div>
+
+      <div class="tool-group">
+        <label class="tool-label">CUSTOM</label>
+        <div class="custom-colors" id="customColors"></div>
+        <button class="action-btn" id="addSwatchBtn">+ Add Color</button>
+      </div>
+
+      <div class="tool-group">
+        <label class="tool-label">LAYERS</label>
+        <div class="layer-info">
+          <div class="layer-badge">BG: <span id="bgColorDisplay">White</span></div>
+        </div>
+        <div class="bg-options">
+          <button class="bg-btn active" data-bg="#ffffff" style="background:#ffffff"></button>
+          <button class="bg-btn" data-bg="#1a1a2e" style="background:#1a1a2e"></button>
+          <button class="bg-btn" data-bg="#f5e6d3" style="background:#f5e6d3"></button>
+          <button class="bg-btn" data-bg="#e8f4e8" style="background:#e8f4e8"></button>
+          <button class="bg-btn" data-bg="#1a1a1a" style="background:#1a1a1a"></button>
+          <button class="bg-btn" data-bg="#2d1b69" style="background:#2d1b69"></button>
+        </div>
+      </div>
+
+      <div class="tool-group">
+        <label class="tool-label">BLEND</label>
+        <select id="blendMode" class="blend-select">
+          <option value="source-over">Normal</option>
+          <option value="multiply">Multiply</option>
+          <option value="screen">Screen</option>
+          <option value="overlay">Overlay</option>
+          <option value="darken">Darken</option>
+          <option value="lighten">Lighten</option>
+          <option value="color-dodge">Color Dodge</option>
+          <option value="color-burn">Color Burn</option>
+          <option value="hard-light">Hard Light</option>
+          <option value="soft-light">Soft Light</option>
+          <option value="difference">Difference</option>
+          <option value="exclusion">Exclusion</option>
+        </select>
+      </div>
+    </aside>
+
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
