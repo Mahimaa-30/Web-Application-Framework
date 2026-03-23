@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MNEMO — Memory Game</title>
+  <link rel="stylesheet" href="style.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet"/>
+</head>
+<body>
+
+  <!-- AMBIENT PARTICLES -->
+  <div class="particles" id="particles"></div>
+
+  <div class="app">
+
+    <!-- HEADER -->
+    <header class="header">
+      <div class="header__left">
+        <h1 class="logo">MNEMO</h1>
+        <span class="logo-sub">memory engine</span>
+      </div>
+      <div class="header__stats">
+        <div class="stat">
+          <span class="stat__val" id="movesCount">0</span>
+          <span class="stat__label">moves</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat">
+          <span class="stat__val" id="pairsCount">0</span>
+          <span class="stat__label">pairs</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat">
+          <span class="stat__val" id="timerDisplay">00:00</span>
+          <span class="stat__label">time</span>
+        </div>
+      </div>
+      <div class="header__right">
+        <button class="btn-ghost" id="newGameBtn">New Game</button>
+        <div class="difficulty-wrap">
+          <button class="diff-btn active" data-size="4">4×4</button>
+          <button class="diff-btn" data-size="5">5×4</button>
+          <button class="diff-btn" data-size="6">6×4</button>
+        </div>
+      </div>
+    </header>
+
+    <!-- BOARD -->
+    <main class="board-wrap">
+      <div class="board" id="board"></div>
+    </main>
+
+    <!-- WIN OVERLAY -->
+    <div class="overlay" id="overlay">
+      <div class="overlay__card">
+        <div class="overlay__glyph">◈</div>
+        <h2 class="overlay__title">Memory Unlocked</h2>
+        <div class="overlay__stats">
+          <div class="overlay__stat">
+            <span id="finalMoves">—</span>
+            <small>moves</small>
+          </div>
+          <div class="overlay__stat">
+            <span id="finalTime">—</span>
+            <small>time</small>
+          </div>
+          <div class="overlay__stat">
+            <span id="finalScore">—</span>
+            <small>score</small>
+          </div>
+        </div>
+        <button class="btn-primary" id="playAgainBtn">Play Again</button>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
