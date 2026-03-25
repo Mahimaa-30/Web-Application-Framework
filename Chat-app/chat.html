@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nexus Chat</title>
+  <meta name="description" content="A modern, real-time chat application with a beautiful dark UI." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="chat.css" />
+</head>
+<body>
+
+  <!-- App Shell -->
+  <div class="app" id="app">
+
+    <!-- ── Sidebar ── -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <div class="logo">
+          <div class="logo-icon">N</div>
+          <span class="logo-text">Nexus</span>
+        </div>
+        <button class="icon-btn" id="newChatBtn" title="New Chat">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </button>
+      </div>
+
+      <div class="search-wrap">
+        <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="text" id="searchInput" class="search-input" placeholder="Search conversations…" />
+      </div>
+
+      <nav class="chat-list" id="chatList" aria-label="Conversations"></nav>
+
+      <div class="sidebar-footer">
+        <div class="user-profile" id="userProfileBtn" role="button" tabindex="0">
+          <div class="avatar" id="sidebarAvatar">You</div>
+          <div class="user-info">
+            <span class="user-name" id="sidebarUserName">You</span>
+            <span class="user-status">● Online</span>
+          </div>
+          <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ── Main Panel ── -->
+    <main class="main" id="main">
+
+      <!-- Top bar -->
+      <header class="topbar" id="topbar">
+        <button class="icon-btn sidebar-toggle" id="sidebarToggle" title="Toggle sidebar">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        </button>
+        <div class="topbar-info">
+          <div class="avatar sm" id="chatAvatar">G1</div>
+          <div>
+            <p class="topbar-name" id="chatName">General</p>
+            <p class="topbar-status" id="chatStatus">3 members · 2 online</p>
+          </div>
+        </div>
+        <div class="topbar-actions">
+          <button class="icon-btn" id="searchMsgBtn" title="Search messages">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          </button>
+          <button class="icon-btn" id="infoBtn" title="Chat info">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          </button>
+        </div>
+      </header>
+
+      <!-- Messages -->
+      <section class="messages-area" id="messagesArea" aria-live="polite" aria-label="Messages"></section>
+
+      <!-- Typing indicator -->
+      <div class="typing-indicator" id="typingIndicator" aria-hidden="true">
+        <div class="typing-avatar">A</div>
+        <div class="typing-dots">
+          <span></span><span></span><span></span>
+        </div>
+        <span class="typing-text">Alice is typing…</span>
+      </div>
+
+      <!-- Compose -->
+      <footer class="compose" id="compose">
+        <div class="reply-preview" id="replyPreview" style="display:none;">
+          <div class="reply-bar"></div>
+          <div class="reply-content">
+            <span class="reply-author" id="replyAuthor"></span>
+            <span class="reply-text" id="replyText"></span>
+          </div>
+          <button class="icon-btn close-reply" id="closeReply" title="Cancel reply">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
+        </div>
+        <div class="compose-row">
+          <button class="icon-btn emoji-btn" id="emojiBtn" title="Emoji">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+          </button>
+          <div class="input-wrap">
+            <textarea id="messageInput" class="message-input" placeholder="Type a message…" rows="1" aria-label="Message input"></textarea>
+          </div>
+          <button class="icon-btn attach-btn" id="attachBtn" title="Attach file">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.44 11.05l-9.19 9.19a6 6 0 01-8.49-8.49l9.19-9.19a4 4 0 015.66 5.66l-9.2 9.19a2 2 0 01-2.83-2.83l8.49-8.48"/></svg>
+          </button>
+          <button class="send-btn" id="sendBtn" title="Send" aria-label="Send message">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+          </button>
+        </div>
+      </footer>
+    </main>
+
+    <!-- ── Emoji Picker ── -->
+    <div class="emoji-picker" id="emojiPicker" style="display:none;" role="dialog" aria-label="Emoji picker"></div>
+
+    <!-- ── Info Panel ── -->
+    <aside class="info-panel" id="infoPanel">
+      <div class="info-header">
+        <h2>Chat Info</h2>
+        <button class="icon-btn" id="closeInfo" title="Close">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <div class="info-avatar-wrap">
+        <div class="avatar xl" id="infoChatAvatar">G1</div>
+        <h3 id="infoChatName">General</h3>
+        <p id="infoChatMeta">3 members · 2 online</p>
+      </div>
+      <div class="info-section">
+        <h4>Members</h4>
+        <ul class="member-list" id="memberList"></ul>
+      </div>
+      <div class="info-section">
+        <h4>Media & Files</h4>
+        <p class="info-empty">No media shared yet.</p>
+      </div>
+    </aside>
+
+    <!-- ── Profile Modal ── -->
+    <div class="modal-overlay" id="profileOverlay" style="display:none;">
+      <div class="modal" id="profileModal" role="dialog" aria-modal="true" aria-labelledby="profileModalTitle">
+        <div class="modal-header">
+          <h2 id="profileModalTitle">Your Profile</h2>
+          <button class="icon-btn" id="closeProfile" title="Close">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="avatar xl" id="profileAvatar">Y</div>
+          <div class="form-group">
+            <label for="profileName">Display Name</label>
+            <input type="text" id="profileName" class="form-input" value="You" />
+          </div>
+          <div class="form-group">
+            <label for="profileStatus">Status</label>
+            <select id="profileStatus" class="form-input">
+              <option value="online">🟢 Online</option>
+              <option value="away">🟡 Away</option>
+              <option value="busy">🔴 Busy</option>
+              <option value="invisible">⚫ Invisible</option>
+            </select>
+          </div>
+          <button class="primary-btn" id="saveProfile">Save Changes</button>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /app -->
+
+  <script src="chat.js"></script>
+</body>
+</html>
