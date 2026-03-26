@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TYPEX — Typing Speed Test</title>
+  <link rel="stylesheet" href="style.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet"/>
+</head>
+<body>
+
+  <!-- CRT scanline overlay -->
+  <div class="crt-overlay"></div>
+  <div class="noise"></div>
+
+  <div class="app">
+
+    <!-- HEADER -->
+    <header class="header">
+      <div class="header__logo">
+        <span class="logo-bracket">[</span>
+        <span class="logo-text">TYPEX</span>
+        <span class="logo-bracket">]</span>
+        <span class="logo-ver">v2.4</span>
+      </div>
+      <div class="header__right">
+        <div class="mode-selector">
+          <button class="mode-btn active" data-mode="15">15s</button>
+          <button class="mode-btn" data-mode="30">30s</button>
+          <button class="mode-btn" data-mode="60">60s</button>
+          <button class="mode-btn" data-mode="120">120s</button>
+        </div>
+        <div class="diff-selector">
+          <button class="diff-btn active" data-diff="normal">NORMAL</button>
+          <button class="diff-btn" data-diff="hard">HARD</button>
+          <button class="diff-btn" data-diff="code">CODE</button>
+        </div>
+      </div>
+    </header>
+
+    <!-- LIVE STATS BAR -->
+    <div class="live-stats">
+      <div class="live-stat">
+        <span class="live-stat__val" id="liveWpm">—</span>
+        <span class="live-stat__label">WPM</span>
+      </div>
+      <div class="live-stat">
+        <span class="live-stat__val" id="liveAcc">—</span>
+        <span class="live-stat__label">ACC%</span>
+      </div>
+      <div class="live-stat">
+        <span class="live-stat__val" id="liveErrors">0</span>
+        <span class="live-stat__label">ERRORS</span>
+      </div>
+      <div class="live-stat live-stat--timer">
+        <span class="live-stat__val" id="timerDisplay">--</span>
+        <span class="live-stat__label">SEC</span>
+      </div>
+    </div>
+
+    <!-- PROGRESS BAR -->
+    <div class="progress-track">
+      <div class="progress-bar" id="progressBar"></div>
+      <div class="progress-glow" id="progressGlow"></div>
+    </div>
+
+    <!-- WORD DISPLAY -->
+    <main class="test-area">
+      <div class="terminal-frame">
+        <div class="terminal-topbar">
+          <span class="terminal-dot"></span>
+          <span class="terminal-dot"></span>
+          <span class="terminal-dot"></span>
+          <span class="terminal-title">TYPING_TEST.exe</span>
+        </div>
+
+        <div class="words-container" id="wordsContainer">
+          <!-- Words injected by JS -->
+        </div>
+
+        <div class="input-row">
+          <span class="prompt">▶</span>
+          <input
+            type="text"
+            id="typeInput"
+            class="type-input"
+            placeholder="start typing to begin..."
+            autocomplete="off"
+            autocorrect="off"
+            autocapitalize="off"
+            spellcheck="false"
+          />
+          <span class="cursor-block" id="cursorBlock"></span>
+        </div>
+      </div>
+    </main>
+
+    <!-- RESULT SCREEN -->
+    <div class="result-screen" id="resultScreen">
+      <div class="result-card">
+        <div class="result-header">
+          <span class="result-label">// TEST COMPLETE</span>
+          <div class="result-grade" id="resultGrade">S</div>
+        </div>
+
+        <div class="result-stats">
+          <div class="result-stat result-stat--big">
+            <span class="result-stat__val" id="finalWpm">0</span>
+            <span class="result-stat__label">WPM</span>
+          </div>
+          <div class="result-stat result-stat--big">
+            <span class="result-stat__val" id="finalAcc">0</span>
+            <span class="result-stat__label">ACCURACY</span>
+          </div>
+        </div>
+
+        <div class="result-stats result-stats--secondary">
+          <div class="result-stat">
+            <span class="result-stat__val" id="finalRaw">0</span>
+            <span class="result-stat__label">RAW WPM</span>
+          </div>
+          <div class="result-stat">
+            <span class="result-stat__val" id="finalErrors">0</span>
+            <span class="result-stat__label">ERRORS</span>
+          </div>
+          <div class="result-stat">
+            <span class="result-stat__val" id="finalChars">0</span>
+            <span class="result-stat__label">CHARS</span>
+          </div>
+          <div class="result-stat">
+            <span class="result-stat__val" id="finalConsistency">0</span>
+            <span class="result-stat__label">CONSISTENCY</span>
+          </div>
+        </div>
+
+        <!-- WPM chart -->
+        <div class="wpm-chart-wrap">
+          <span class="chart-label">WPM OVER TIME</span>
+          <canvas id="wpmChart" height="80"></canvas>
+        </div>
+
+        <div class="result-actions">
+          <button class="btn-restart" id="restartBtn">
+            <span>↺</span> RESTART
+          </button>
+          <button class="btn-new" id="newTestBtn">
+            <span>⟳</span> NEW TEST
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+      <span>TAB — restart &nbsp;|&nbsp; ESC — reset &nbsp;|&nbsp; ENTER — new test</span>
+    </footer>
+
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
